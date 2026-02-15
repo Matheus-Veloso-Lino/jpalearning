@@ -1,22 +1,19 @@
 package br.com.rafaellinos.repository;
 
-import br.com.rafaellinos.core.domain.PageableDomain;
-import br.com.rafaellinos.core.domain.PersonQualification;
-import br.com.rafaellinos.core.domain.Pessoa;
-import br.com.rafaellinos.core.repository.PessoaRepository;
-import br.com.rafaellinos.core.specification.PessoaSpecification;
-import br.com.rafaellinos.repository.entity.PessoaEntity;
-import br.com.rafaellinos.repository.entity.PessoaQualificationEntity;
-import br.com.rafaellinos.repository.jparepository.PessoaJpaRepository;
-import br.com.rafaellinos.repository.jpaspecification.PessoaJpaSpecification;
-import br.com.rafaellinos.repository.mapper.PessoaEntityMapper;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import br.com.rafaellinos.core.domain.*;
+import br.com.rafaellinos.core.repository.*;
+import br.com.rafaellinos.core.specification.*;
+import br.com.rafaellinos.repository.entity.*;
+import br.com.rafaellinos.repository.jparepository.*;
+import br.com.rafaellinos.repository.jpaspecification.*;
+import br.com.rafaellinos.repository.mapper.*;
+import jakarta.transaction.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.*;
+import org.springframework.stereotype.*;
+
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -47,5 +44,11 @@ public class PessoaRepositoryImpl implements PessoaRepository {
         pessoaPageableDomain.setTotalPages(pessoaEntities.getTotalPages());
         pessoaPageableDomain.setTotalElements(pessoaEntities.getNumberOfElements());
         return pessoaPageableDomain;
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(UUID id) {
+        pessoaJpaRepository.deleteById(id);
     }
 }
